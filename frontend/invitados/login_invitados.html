@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Página de Inicio</title>
+
+    <link rel="stylesheet" href="css/login_invitados.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="/frontend/favicoin.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/frontend/favicoin.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/frontend/favicoin.png">
+</head>
+
+<body>
+    <!-- Overlay elegante -->
+    <div class="overlay"></div>
+
+    <!-- CONTENIDO -->
+    <div class="contenedor">
+        <div class="card">
+
+            <h1 class="titulo">¡Bienvenido!</h1>
+
+            <p class="subtitulo">
+                <strong> Nos llena de felicidad invitarte a nuestra boda </strong>
+            </p>
+
+            <p class="mensaje">
+                <strong> Ingresa el código de invitación</strong>
+
+            <input type="text" id="codigo" placeholder="BODA-XXXXXX" class="input-codigo" />
+
+            <button id="btnVerificar" class="btn">
+                Ver invitación
+            </button>
+
+            <p id="mensaje"></p>
+        </div>
+    </div>
+
+    <script src="js/login_invitados.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/panel_control.css">
+
+  <!-- Fuentes -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;500&display=swap"
+    rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="/frontend/favicoin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/frontend/favicoin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/frontend/favicoin.png">
+</head>
+
+<body>
+
+  <!-- =========================
+       🧭 NAVBAR
+  ========================= -->
+  <header class="navbar">
+    <div class="logo">Boda Admin</div>
+
+    <nav>
+      <ul class="menu">
+
+        <li onclick="mostrarSeccion('inicio')">Inicio</li>
+
+        <li class="dropdown">
+          <span onclick="toggleMenu(event)">Invitados ▾</span>
+
+          <ul class="submenu" id="submenuInvitados">
+            <li onclick="irSeccion(event, 'ver')">Ver invitados</li>
+            <li onclick="abrirModalCrear()">Crear invitado</li>
+          </ul>
+        </li>
+
+        <li onclick="mostrarSeccion('estadisticas')">Estadísticas</li>
+
+      </ul>
+    </nav>
+
+    <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+  </header>
+
+  <!-- =========================
+       📦 CONTENIDO
+  ========================= -->
+  <main class="contenido">
+
+
+    <div class="welcome">
+      <h2>Bienvenido <span id="adminNombre">Admin</span> 👋</h2>
+      <p></p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section id="inicio" class="seccion active">
+      <h1>Dashboard</h1>
+
+      <div class="cards">
+        <div class="card total">
+          <div class="card-content">
+            <div class="icono"><i data-lucide="users"></i></div>
+            <div class="info">
+              <p>Total</p>
+              <span id="total">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card confirmados">
+          <div class="card-content">
+            <div class="icono"><i data-lucide="check-circle"></i></div>
+            <div class="info">
+              <p>Confirmados</p>
+              <span id="confirmados">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pendientes">
+          <div class="card-content">
+            <div class="icono"><i data-lucide="clock"></i></div>
+            <div class="info">
+              <p>Pendientes</p>
+              <span id="pendientes">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card rechazados">
+          <div class="card-content">
+            <div class="icono"><i data-lucide="x-circle"></i></div>
+            <div class="info">
+              <p>Rechazados</p>
+              <span id="rechazados">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTA DE INVITADOS -->
+    <section id="ver" class="seccion">
+      <h1>Lista de Invitados</h1>
+      <div id="tablaInvitados"></div>
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+    <section id="estadisticas" class="seccion">
+      <h1>Estadísticas</h1>
+
+      <canvas id="graficaInvitados" style="max-width:600px;"></canvas>
+    </section>
+  </main>
+
+  <!-- =========================
+       🪟 MODAL CREAR INVITADO
+  ========================= -->
+  <div id="modalCrear" class="modal">
+    <div class="modal-content form-grid">
+
+      <span class="close" onclick="cerrarModalCrear()">✖</span>
+
+      <h2 class="form-full">Crear Invitado</h2>
+
+      <!-- NOMBRE -->
+      <label>Nombre completo</label>
+      <input type="text" id="nombre">
+
+      <!-- TELÉFONO -->
+      <label>Teléfono</label>
+      <input type="text" id="telefono">
+
+      <!-- INVITADOS -->
+      <label>Invitados permitidos</label>
+      <input type="number" id="invitados_permitidos" min="1">
+
+      <!-- EVENTO -->
+      <label>Evento</label>
+      <select id="evento_id">
+        <option value="">Seleccionar evento</option>
+      </select>
+
+      <!-- ESTADO -->
+      <label>Estado inicial</label>
+      <select id="estado">
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmado">Confirmado</option>
+        <option value="rechazado">Rechazado</option>
+      </select>
+
+      <button class="form-full" onclick="crearInvitado()">Crear invitado</button>
+
+      <p id="msgCrear" class="form-full"></p>
+
+    </div>
+  </div>
+
+  <!-- =========================
+       🪟 MODAL EDITAR INVITADO
+  ========================= -->
+  <div id="modalEditar" class="modal">
+    <div class="modal-content form-grid">
+
+      <span class="close" onclick="cerrarModalEditar()">✖</span>
+
+      <h2>Editar Invitado</h2>
+
+      <input type="hidden" id="edit_codigo">
+
+      <label>Nombre </label>
+      <input type="text" id="edit_nombre">
+
+      <label>Teléfono</label>
+      <input type="text" id="edit_telefono">
+
+      <label>Permitidos</label>
+      <input type="number" id="edit_permitidos">
+
+      <label>Confirmados</label>
+      <input type="number" id="edit_confirmados">
+
+      <label>Estado</label>
+      <select id="edit_estado">
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmado">Confirmado</option>
+        <option value="rechazado">Rechazado</option>
+      </select>
+
+      <label>Fecha de confirmación</label>
+      <input type="datetime-local" id="edit_fecha">
+
+      <label>Motivo</label>
+      <textarea id="edit_motivo" rows="3"></textarea>
+
+      <button onclick="guardarEdicion()">Guardar cambios</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/panel_control.js"></script>
+
+  <!-- =========================
+     🪟 MODAL ELIMINAR
+  ========================= -->
+  <div id="modalEliminar" class="modal">
+    <div class="modal-content form-grid">
+
+      <span class="close" onclick="cerrarModalEliminar()">✖</span>
+
+      <h2>Eliminar Invitado</h2>
+
+      <p id="textoEliminar"></p>
+
+      <input type="hidden" id="delete_codigo">
+
+      <div style="display:flex; gap:10px; margin-top:15px;">
+        <button onclick="confirmarEliminar()" style="background:#e74c3c;">Eliminar</button>
+        <button onclick="cerrarModalEliminar()" style="background:#ccc; color:#333;">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="modalSuccess" class="modal">
+    <div class="modal-content success-modal">
+
+      <h2 id="successTitle">✔️ Éxito</h2>
+
+      <p id="successMessage"></p>
+
+      <!-- Código (solo cuando aplique) -->
+      <div id="codigoBox" style="display:none;">
+        <input type="text" id="codigoGenerado" readonly>
+        <button onclick="copiarCodigo()">Copiar</button>
+      </div>
+
+      <button onclick="cerrarModalSuccess()">Cerrar</button>
+
+    </div>
+  </div>
+</body>
+
+</html>
