@@ -89,7 +89,7 @@ async function verificarCodigo() {
         localStorage.removeItem("tiempoBloqueo");
 
         // 🚀 Redirigir
-        window.location.href = "pagina_invitados.html";
+        window.location.href = "/invitados/pagina_invitados.html";
 
     } catch (error) {
         console.error(error);

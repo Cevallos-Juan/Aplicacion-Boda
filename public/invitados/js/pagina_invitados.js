@@ -260,11 +260,11 @@ async function abrirInvitacion() {
 ========================= */
 
 const imagenes = [
-    "/frontend/invitados/img/Nosotros_1.jpeg",
-    "/frontend/invitados/img/Nosotros_3.jpeg",
-    "/frontend/invitados/img/Nosotros_2.jpeg",
-    "/frontend/invitados/img/Nosotros_4.jpeg",
-    "/frontend/invitados/img/Nosotros_5.jpeg"
+    "/invitados/img/Nosotros_1.jpeg",
+    "/invitados/img/Nosotros_3.jpeg",
+    "/invitados/img/Nosotros_2.jpeg",
+    "/invitados/img/Nosotros_4.jpeg",
+    "/invitados/img/Nosotros_5.jpeg"
 ];
 
 const track = document.querySelector(".carousel-track");

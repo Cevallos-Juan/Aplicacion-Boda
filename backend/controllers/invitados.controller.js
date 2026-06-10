@@ -197,6 +197,10 @@ const confirmarAsistencia = async (req, res) => {
 const obtenerInvitado = async (req, res) => {
   try {
     const { codigo } = req.params;
+    const fs = require('fs');
+    const path = require('path');
+    const logFile = path.join(__dirname, '../invitado-debug.log');
+    fs.appendFileSync(logFile, `${new Date().toISOString()} obtenerInvitado codigo: ${codigo}\n`);
 
     if (!codigo || codigo.trim () === '') {
       return res.status (400).json ({ message: 'El código ingresado no es válido ❌' });

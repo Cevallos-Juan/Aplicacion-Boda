@@ -3,10 +3,19 @@ const router = express.Router ();
 const bcrypt = require ('bcrypt');
 const jwt = require ('jsonwebtoken');
 const pool = require ('../db');
+const fs = require ('fs');
+const path = require ('path');
 const loginLimiter = require ('../middleware/rateLimit.middleware');
 
+const debugLog = (msg) => {
+  const file = path.join(__dirname, '../login-debug.log');
+  fs.appendFileSync(file, `${new Date().toISOString()} ${msg}\n`);
+};
+
 router.post ('/', loginLimiter, async (req, res) => {
-    const { email, password } = req.body;
+    debugLog(`login request body: ${JSON.stringify(req.body)}`);
+    const { email, password } = req.body || {};
+    debugLog(`login email: ${email} password present: ${typeof password === 'string'}`);
     try {
         const result = await pool.query ('SELECT * FROM admins WHERE email = $1', [email]);
 

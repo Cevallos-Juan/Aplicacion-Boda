@@ -1,7 +1,7 @@
+require ('dotenv').config ();
 const pool = require ('./db');
 const express = require ('express');
 const cors = require ('cors');
-require ('dotenv').config ();
 
 const app = express ();
 const path = require ('path');
@@ -9,11 +9,16 @@ const path = require ('path');
 app.use (cors ());
 app.use (express.json ());
 
+app.post('/api/debug-login', (req, res) => {
+  console.log('debug-login body', req.body);
+  res.json({ ok: true, body: req.body });
+});
+
 // servir frontend
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/invitados/login_invitados.html'));
+  res.sendFile(path.join(__dirname, '../public/invitados/login_invitados.html'));
 });
 
 const invitadosRoutes = require ('./routes/invitados.routes');

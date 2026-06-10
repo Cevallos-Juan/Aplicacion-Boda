@@ -2,3 +2,22 @@ backend/node_modules/
 backend/.env
 .vscode/
 .DS_Store
+# Temp and local test artifacts
+out.html
+tmp*.js
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Build / coverage
+coverage/
+dist/
+build/
+
+# Local env files
+.env.local
+.env.*.local
+
+# OS files
+Thumbs.db
