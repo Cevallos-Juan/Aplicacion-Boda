@@ -10,10 +10,10 @@ app.use (cors ());
 app.use (express.json ());
 
 // servir frontend
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/invitados/login_invitado.html'));
+  res.sendFile(path.join(__dirname, 'public/invitados/login_invitados.html'));
 });
 
 const invitadosRoutes = require ('./routes/invitados.routes');
