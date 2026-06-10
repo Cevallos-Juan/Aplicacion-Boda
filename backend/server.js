@@ -11,11 +11,13 @@ app.use (express.json ());
 
 app.use (
     express.static (
-        path.join (__dirname, '../frontend')
+        path.join (__dirname, '../frontend/')
     )
 );
 
-app.get ('/', (req, res) => { res.send ('El servidor de Bodas esta funcionando 💍​✔️​'); });
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'login_invitado.html'));
+});
 
 const invitadosRoutes = require ('./routes/invitados.routes');
 app.use ('/api/invitados', invitadosRoutes);
