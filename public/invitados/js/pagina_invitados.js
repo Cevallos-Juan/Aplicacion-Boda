@@ -44,6 +44,7 @@ async function cargarDatos() {
 // 🎨 RENDER
 function renderizar() {
     setText("permitidos", invitadoData?.invitados_permitidos);
+    setText("nombre_invitado", invitadoData?.nombre ? `Para: ${invitadoData.nombre}` : "");
 
     // 🔢 INPUT CORREGIDO (🔥 AQUÍ EL FIX REAL)
     const input = document.getElementById("cantidad");
